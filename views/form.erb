@@ -1,0 +1,89 @@
+<form action='/condorfy' method='post'>
+      
+  <fieldset>
+    <legend>1: Basic configuration.</legend>
+    <p>
+      <strong>Select Universe:</strong><br/>
+      <input type="radio" name="universe"
+	     id="vanilla" value="vanilla"
+	     checked="checked" />
+      <label for="vanilla">Vanilla</label>
+      
+      <input type="radio" name="universe"
+	     id="standard" value="standard" />
+      <label for="standard">Standard</label>
+      
+      <input type="radio" name="universe"
+	     id="parallel" value="parallel" />
+      <label for="parallel">Parallel</label>
+      
+      <input type="radio" name="universe"
+	     id="java" value="java" />
+      <label for="java">Java</label>
+    </p>
+    
+    <p>
+      <strong>Executable:</strong><br/>
+      <select id = "binarylist">
+	<option option="-1">------</option>
+	<% @binaries.each_with_index do |item, i| %>
+        <option option=<%=i%>>/usr/bin/<%=item%></option>
+	<%end%>
+      </select>
+      Or custom bin path: <input type="text" name="real_bin_path" />
+    </p>
+    
+    <p>
+      <strong>Out-Err-Log files name:</strong><br/> <input type="text" name="files_name" />
+    </p>
+    
+    <p>
+      <strong>Executable arguments:</strong><br/> <input type="text" name="arguments" />
+    </p>
+    
+    <p>
+      <strong>Number of Jobs or number of cores for the Parallel Universe:</strong><br/>
+      <select id = "binarylist">
+	<% @max_num_jobs.times do |i| %>
+	<option option=<%=i+1%>><%=i+1%></option>
+	<%end%>
+      </select>
+    </p>
+    
+    <p>
+      <strong>Input file contents (plain text):</strong><br/>
+      <textarea name="input_file_content" rows="6" cols="58"></textarea>
+    </p>
+  </fieldset>  
+  
+  
+  <fieldset><legend>2: Advanced options:</legend>
+    <p>
+      <strong>Set environment variables:</strong><br/>
+      <input type="text" name="env1" />=<input type="text" name="env1val" /><br/>
+      <input type="text" name="env2" />=<input type="text" name="env2val" />
+    </p>
+    
+    <p>
+      <strong>Should transfer files:</strong><br/>
+      <input type="radio" name="if_needed"
+	     id="if_needed" value="If Needed"
+	     checked="checked" />
+      <label for="if_needed">If needed</label>
+    </p>
+
+    <p>
+      <strong>When to transfer output:</strong><br/>
+      <input type="radio" name="on_exit"
+	     id="on_exit" value="On Exit"
+	     checked="checked" />
+      <label for="on_exit">On Exit</label>
+    </p>
+    
+  </fieldset>
+  
+  <fieldset><legend>3: Even more.</legend>
+  </fieldset>
+  
+  <input type="submit" value="Condorfy!">
+</form>
