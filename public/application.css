@@ -1,0 +1,9 @@
+
+#condor_file {
+    width: 300px;
+    background-color: #999
+}
+
+input[type="text"]{
+    width: 99px;
+}

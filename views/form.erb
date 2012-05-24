@@ -4,27 +4,27 @@
     <legend>1: Basic configuration.</legend>
     <p>
       <strong>Select Universe:</strong><br/>
-      <input type="radio" name="universe"
-	     id="vanilla" value="vanilla"
+      <input type="radio" name="Universe"
+	     value="vanilla"
 	     checked="checked" />
-      <label for="vanilla">Vanilla</label>
+      <label>Vanilla</label>
       
-      <input type="radio" name="universe"
-	     id="standard" value="standard" />
-      <label for="standard">Standard</label>
+      <input type="radio" name="Universe"
+	     value="standard" />
+      <label>Standard</label>
       
-      <input type="radio" name="universe"
-	     id="parallel" value="parallel" />
-      <label for="parallel">Parallel</label>
+      <input type="radio" name="Universe"
+	     value="parallel" />
+      <label>Parallel</label>
       
-      <input type="radio" name="universe"
-	     id="java" value="java" />
-      <label for="java">Java</label>
+      <input type="radio" name="Universe"
+	     value="java" />
+      <label>Java</label>
     </p>
     
     <p>
       <strong>Executable:</strong><br/>
-      <select id = "binarylist">
+      <select name="Executable">
 	<option option="-1">------</option>
 	<% @binaries.each_with_index do |item, i| %>
         <option option=<%=i%>>/usr/bin/<%=item%></option>
@@ -38,12 +38,12 @@
     </p>
     
     <p>
-      <strong>Executable arguments:</strong><br/> <input type="text" name="arguments" />
+      <strong>Executable arguments:</strong><br/> <input type="text" name="Arguments" />
     </p>
     
     <p>
       <strong>Number of Jobs or number of cores for the Parallel Universe:</strong><br/>
-      <select id = "binarylist">
+      <select name="jobs_or_cores">
 	<% @max_num_jobs.times do |i| %>
 	<option option=<%=i+1%>><%=i+1%></option>
 	<%end%>
@@ -66,18 +66,31 @@
     
     <p>
       <strong>Should transfer files:</strong><br/>
-      <input type="radio" name="if_needed"
-	     id="if_needed" value="If Needed"
+      <input type="radio" name="should_transfer_files"
+	     value="IF_NEEDED"
 	     checked="checked" />
-      <label for="if_needed">If needed</label>
+      <label>If needed</label>
+
+      <input type="radio" name="should_transfer_files"
+	     value="YES"/>
+      <label>Yes</label>
+
+      <input type="radio" name="should_transfer_files"
+	     value="NO"/>
+      <label>No</label>
     </p>
 
     <p>
       <strong>When to transfer output:</strong><br/>
-      <input type="radio" name="on_exit"
-	     id="on_exit" value="On Exit"
+      <input type="radio" name="when_to_transfer_output"
+	     value="ON_EXIT"
 	     checked="checked" />
-      <label for="on_exit">On Exit</label>
+      <label>On Exit</label>
+
+      <input type="radio" name="when_to_transfer_output"
+	     value="ON_EXIT_OR_EVICT" />
+      <label>On exit or evict</label>
+
     </p>
     
   </fieldset>
