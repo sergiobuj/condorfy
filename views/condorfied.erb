@@ -1,7 +1,6 @@
 <h1>"Condor File created!"</h1>
-<div id='condor_file' style="background-color:#999; width: 400px">
-  <% params.keys.each do |k|%>
-  <%="#{k} = #{params[k]}"%><br/>
-  <%end%>
+<div id='condor_file'>
+  <%= @condorfyle.gsub(/\n/, '<br>') %>
 </div>
+
 <a href='/create'>Create another condor file</a>

@@ -25,7 +25,7 @@
     <p>
       <strong>Executable:</strong><br/>
       <select name="Executable">
-	<option option="-1">------</option>
+	<option option="-1"></option>
 	<% @binaries.each_with_index do |item, i| %>
         <option option=<%=i%>>/usr/bin/<%=item%></option>
 	<%end%>
