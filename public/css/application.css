@@ -1,9 +1,8 @@
 #condor_file {
-    width: 400px;
-    background-color: #999
-    
+  width: 400px;
+  background-color: #999
 }
 
-input[type="text"]{
-    width: 99px;
+.env-var{
+  margin-top: 15px;
 }

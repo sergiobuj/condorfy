@@ -1,102 +1,97 @@
 <form action='/condorfy' method='post'>
-      
+
   <fieldset>
     <legend>1: Basic configuration.</legend>
+    <p><strong>Select Universe:</strong></p>
+
     <p>
-      <strong>Select Universe:</strong><br/>
-      <input type="radio" name="universe"
-	     value="vanilla"
-	     checked="checked" />
-      <label>Vanilla</label>
-      
-      <input type="radio" name="universe"
-	     value="standard" />
-      <label>Standard</label>
-      
-      <input type="radio" name="universe"
-	     value="parallel" />
-      <label>Parallel</label>
-      
-      <input type="radio" name="universe"
-	     value="java" />
-      <label>Java</label>
+      <% %w(vanilla standard parallel java).each do |universe| %>
+      <input type="radio" name="universe" value="<%= universe %>" id="<%= universe %>" />
+      <label for="<%= universe %>"><%= titleize universe %></label>
+      <% end %>
     </p>
-    
+
     <p>
       <strong>Executable:</strong><br/>
       <select name="executable">
-	<option option="-1"></option>
-	<% @binaries.each_with_index do |item, i| %>
+        <option option="-1"></option>
+        <% @binaries.each_with_index do |item, i| %>
         <option option=<%=i%>>/usr/bin/<%=item%></option>
-	<%end%>
+        <%end%>
       </select>
+    </p>
+
+    <p>
       Or custom bin path: <input type="text" name="real_bin_path" />
     </p>
-    
+
     <p>
-      <strong>Out-Err-Log files name:</strong><br/> <input type="text" name="files_name" />
+      <strong>Out-Err-Log files name:</strong><br/> <input type="text" name="files_name" size="50" />
     </p>
-    
+
     <p>
-      <strong>Executable arguments:</strong><br/> <input type="text" name="arguments" />
+      <strong>Executable arguments:</strong><br/> <input type="text" name="arguments" size="50" />
     </p>
-    
+
     <p>
-      <strong>Number of Jobs or number of cores for the Parallel Universe:</strong><br/>
-      <select name="jobs_or_cores">
-	<% @max_num_jobs.times do |i| %>
-	<option option=<%=i+1%>><%=i+1%></option>
-	<%end%>
-      </select>
+      <strong>Number of Jobs or number of cores for the Parallel Universe:</strong>
     </p>
-    
+
+    <select name="jobs_or_cores">
+      <% @max_num_jobs.times do |i| %>
+      <option option=<%=i+1%>><%=i+1%></option>
+      <%end%>
+    </select>
+
     <p>
       <strong>Input file contents (plain text):</strong><br/>
       <textarea name="input_file_content" rows="6" cols="58"></textarea>
     </p>
-  </fieldset>  
-  
-  
+  </fieldset>
+
+
   <fieldset><legend>2: Advanced options:</legend>
     <p>
-      <strong>Set environment variables:</strong><br/>
-      <input type="text" name="env1" />=<input type="text" name="env1val" /><br/>
-      <input type="text" name="env2" />=<input type="text" name="env2val" />
+      <strong>Set environment variables:</strong>
     </p>
-    
+
+    <div class="env-var"><input type="text" name="env1" /> = <input type="text" name="env1val" /></div>
+
+    <div class="env-var"><input type="text" name="env2" /> = <input type="text" name="env2val" /></div>
+
     <p>
       <strong>Should transfer files:</strong><br/>
       <input type="radio" name="should_transfer_files"
-	     value="IF_NEEDED"
-	     checked="checked" />
+      value="IF_NEEDED"
+      checked="checked" />
       <label>If needed</label>
 
       <input type="radio" name="should_transfer_files"
-	     value="YES"/>
+      value="YES"/>
       <label>Yes</label>
 
       <input type="radio" name="should_transfer_files"
-	     value="NO"/>
+      value="NO"/>
       <label>No</label>
     </p>
 
     <p>
       <strong>When to transfer output:</strong><br/>
       <input type="radio" name="when_to_transfer_output"
-	     value="ON_EXIT"
-	     checked="checked" />
+      value="ON_EXIT"
+      checked="checked" />
       <label>On Exit</label>
 
       <input type="radio" name="when_to_transfer_output"
-	     value="ON_EXIT_OR_EVICT" />
+      value="ON_EXIT_OR_EVICT" />
       <label>On exit or evict</label>
 
     </p>
-    
+
   </fieldset>
-  
+
   <fieldset><legend>3: Even more.</legend>
   </fieldset>
-  
+
   <input type="submit" value="Condorfy!">
 </form>
