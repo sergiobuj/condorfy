@@ -28,8 +28,9 @@ end
 
 post '/condorfy/?' do
   params.keys.each do |key|
-    params[key].strip!
+    params[key].strip! if params[key].respond_to?(:strip!)
   end
+
   params.delete_if {|_, v| v.empty? }
 
   is_parallel = false
@@ -41,6 +42,9 @@ post '/condorfy/?' do
 
   files_name = params.delete("files_name")
   machine_count = params.delete("jobs_or_cores")
+
+  env_names  = params.delete("env_names")
+  env_values = params.delete("env_values")
 
   if is_parallel
     @condorfyle << "#### Number of machines for parallel processing ####\n"
@@ -55,7 +59,7 @@ post '/condorfy/?' do
   @condorfyle << "log = #{files_name}.log\n"
 
   ##### Create file #####
-  @condorfyle << "#### Other config variables ####\n"
+  @condorfyle << "\n\n#### Other config variables ####\n"
   params.each do | key , value|
     @condorfyle << "#{key} = #{value}\n"
   end
@@ -65,6 +69,9 @@ post '/condorfy/?' do
   else
     @condorfyle << "queue #{machine_count}\n"
   end
+
+  @condorfyle << "\n\n#### Environment Variables ####\n"
+  @condorfyle << "environment = #{env_names.zip(env_values).map{|x| x.join("=")}.join(';')}\n"
 
   session["condorfilename"] = params[:files_name]
   session["condorfi"] = @condorfyle
