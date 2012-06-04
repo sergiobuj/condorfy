@@ -12,6 +12,11 @@ before do
   content_type :html
 end
 
+helpers do
+  def titleize(word)
+    word.gsub(/^(.)/) { $1.capitalize }
+  end
+end
 
 ['/', '/create/?'].each do |req|
   get req do
