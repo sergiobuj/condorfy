@@ -4,27 +4,27 @@
     <legend>1: Basic configuration.</legend>
     <p>
       <strong>Select Universe:</strong><br/>
-      <input type="radio" name="Universe"
+      <input type="radio" name="universe"
 	     value="vanilla"
 	     checked="checked" />
       <label>Vanilla</label>
       
-      <input type="radio" name="Universe"
+      <input type="radio" name="universe"
 	     value="standard" />
       <label>Standard</label>
       
-      <input type="radio" name="Universe"
+      <input type="radio" name="universe"
 	     value="parallel" />
       <label>Parallel</label>
       
-      <input type="radio" name="Universe"
+      <input type="radio" name="universe"
 	     value="java" />
       <label>Java</label>
     </p>
     
     <p>
       <strong>Executable:</strong><br/>
-      <select name="Executable">
+      <select name="executable">
 	<option option="-1"></option>
 	<% @binaries.each_with_index do |item, i| %>
         <option option=<%=i%>>/usr/bin/<%=item%></option>
@@ -38,7 +38,7 @@
     </p>
     
     <p>
-      <strong>Executable arguments:</strong><br/> <input type="text" name="Arguments" />
+      <strong>Executable arguments:</strong><br/> <input type="text" name="arguments" />
     </p>
     
     <p>
