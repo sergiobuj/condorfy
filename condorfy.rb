@@ -6,6 +6,8 @@ rescue LoadError
   # sinatra-contrib not installed
 end
 
+enable :sessions
+
 before do
   content_type :html
 end
@@ -49,11 +51,15 @@ post '/condorfy/?' do
   end
   
   @condorfyle << ((is_parallel)? "queue\n" : "queue #{params[:jobs_or_cores]}\n")  
-  
-  puts @condorfyle
+  session["condorfilename"] = params[:files_name]
+  session["condorfi"] = @condorfyle
   erb :condorfied
 end
 
 get '/getfied' do
-  
+  content_type 'application/condor'
+  File.open("condor.file.condor", 'w') do |f|
+    f.puts( session["condorfi"] )
+  end
+  send_file("condor.file.condor", :disposition => 'attachment', :filename => "#{session["condorfilename"]}.condor")
 end
