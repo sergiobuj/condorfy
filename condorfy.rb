@@ -69,19 +69,24 @@ post '/condorfy/?' do
   else
     @condorfyle << "queue #{machine_count}\n"
   end
-
-  @condorfyle << "\n\n#### Environment Variables ####\n"
-  @condorfyle << "environment = #{env_names.zip(env_values).map{|x| x.join("=")}.join(';')}\n"
-
-  session["condorfilename"] = params[:files_name]
+  
+  unless env_names.nil?
+    @condorfyle << "\n\n#### Environment Variables ####\n"
+    @condorfyle << "environment = #{env_names.zip(env_values).map{|x| x.join("=")}.join(';')}\n"
+  end
+  
+  session["CFNcondor"] = files_name
   session["condorfi"] = @condorfyle
   erb :condorfied
 end
 
 get '/getfied' do
   content_type 'application/condor'
-  File.open("condor.file.condor", 'w') do |f|
-    f.puts( session["condorfi"] )
-  end
-  send_file("condor.file.condor", :disposition => 'attachment', :filename => "#{session["condorfilename"]}.condor")
+  temp = Tempfile.new("condor.file.condor")
+  temp.write( session["condorfi"] )
+  temp.close
+
+  send_file(temp.path , :disposition => 'attachment', :filename => "#{session['CFNcondor']}.condor")
+
+  temp.unlink
 end
