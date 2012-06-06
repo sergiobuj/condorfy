@@ -38,7 +38,7 @@ post '/condorfy/?' do
   is_parallel = true if params[:universe] == "parallel"
 
   @condorfyle = "#### Auto generated Condor Submission file ####\n"
-  @condorfyle << "#### Sergio Botero sbotero2_a_eafit_edu_co ####\n\n\n"
+  @condorfyle << "#### APOLO eafit COL ####\n\n"
 
   files_name = params.delete("files_name")
   machine_count = params.delete("jobs_or_cores")
@@ -64,15 +64,15 @@ post '/condorfy/?' do
     @condorfyle << "#{key} = #{value}\n"
   end
 
+  unless env_names.nil?
+    @condorfyle << "\n\n#### Environment Variables ####\n"
+    @condorfyle << "environment = #{env_names.zip(env_values).map{|x| x.join("=")}.join(';')}\n"
+  end
+
   if is_parallel
     @condorfyle << "queue\n"
   else
     @condorfyle << "queue #{machine_count}\n"
-  end
-  
-  unless env_names.nil?
-    @condorfyle << "\n\n#### Environment Variables ####\n"
-    @condorfyle << "environment = #{env_names.zip(env_values).map{|x| x.join("=")}.join(';')}\n"
   end
   
   session["CFNcondor"] = files_name
