@@ -108,12 +108,13 @@ post '/condorfy/?' do
 end
 
 get '/download/:filename' do
+
   content_type 'application/condor'
   temp = Tempfile.new("condor.file.condor")
   temp.write( session["condorfi"] )
   temp.close
 
-  send_file(temp.path , :disposition => 'attachment', :filename => "#{:filename}.condor")
+  send_file(temp.path , :disposition => 'attachment', :filename => "#{params[:filename]}.condor")
 
   temp.unlink
 end
