@@ -16,6 +16,10 @@ helpers do
   def titleize(word)
     word.gsub(/^(.)/) { $1.capitalize }
   end
+
+  def unspace(word)
+    word.sub(" ", "_" )
+  end
 end
 
 ['/', '/create/?'].each do |req|
@@ -40,7 +44,7 @@ post '/condorfy/?' do
   @condorfyle = "#### Generated Condor Submission file ####\n"
   @condorfyle << "#### APOLO eafit COL ####\n\n"
 
-  files_name = params.delete("files_name")
+  files_name = unspace params.delete("files_name")
   machine_count = params.delete("jobs_or_cores")
 
   env_names  = params.delete("env_names")
