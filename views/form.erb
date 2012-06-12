@@ -60,34 +60,21 @@
     <p><a href='#' id='js-add-env'>Add Environment Variable</a></p>
 
     <p>
-      <strong>Should transfer files:</strong><br/>
-      <input type="radio" name="should_transfer_files"
-             value="IF_NEEDED"
-             checked/>
-      <label>If needed</label>
-
-      <input type="radio" name="should_transfer_files"
-             value="YES"/>
-      <label>Yes</label>
-
-      <input type="radio" name="should_transfer_files"
-             value="NO"/>
-      <label>No</label>
+      <strong>Should transfer files:</strong><br/>      
+      <% %w(IF_NEEDED YES NO).each do |should| %>
+      <input type="radio" name="should_transfer_files" value="<%= should %>" <%= should == 'IF_NEEDED'? "checked" : ""%> />
+      <label for="<%= should %>"><%= should %></label>
+      <% end %>
     </p>
-
+    
     <p>
       <strong>When to transfer output:</strong><br/>
-      <input type="radio" name="when_to_transfer_output"
-             value="ON_EXIT"
-             checked="checked" />
-      <label>On Exit</label>
-
-      <input type="radio" name="when_to_transfer_output"
-             value="ON_EXIT_OR_EVICT" />
-      <label>On exit or evict</label>
-
+      <% %w(ON_EXIT ON_EXIT_OR_EVICT).each do |transfer| %>
+      <input type="radio" name="when_to_transfer_output" value="<%= transfer %>" <%= transfer == "ON_EXIT"? "checked":"" %>/>
+      <label for="<%= transfer %>"><%= transfer %></label>
+      <% end %>  
     </p>
-
+    
   </fieldset>
 
   <fieldset><legend>3: Even more.</legend>
