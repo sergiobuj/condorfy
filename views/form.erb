@@ -82,14 +82,14 @@
       <strong>Requirements</strong><br/>
     <p>
       Operating System:
-      <% %w(LINUX WIN32 WINDOWS).each do |opSys| %>
+      <% %w(LINUX WINNT61).each do |opSys| %>
       <input type="radio" name="required_opsys" value="<%= opSys %>" id="<%= opSys %>" />
       <label for="<%= opSys %>"><%= opSys %></label>
       <% end %>
     </p>
     <p>
       Architecture:
-      <% %w(INTEL).each do |arch| %>
+      <% %w(INTEL X86_64 X86).each do |arch| %>
       <input type="radio" name="required_arch" value="<%= arch %>" id="<%= arch %>" />
       <label for="<%= arch %>"><%= arch %></label>
       <% end %>
