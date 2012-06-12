@@ -62,28 +62,28 @@
     <p>
       <strong>Should transfer files:</strong><br/>
       <input type="radio" name="should_transfer_files"
-      value="IF_NEEDED"
-      checked="checked" />
+             value="IF_NEEDED"
+             checked="checked" />
       <label>If needed</label>
 
       <input type="radio" name="should_transfer_files"
-      value="YES"/>
+             value="YES"/>
       <label>Yes</label>
 
       <input type="radio" name="should_transfer_files"
-      value="NO"/>
+             value="NO"/>
       <label>No</label>
     </p>
 
     <p>
       <strong>When to transfer output:</strong><br/>
       <input type="radio" name="when_to_transfer_output"
-      value="ON_EXIT"
-      checked="checked" />
+             value="ON_EXIT"
+             checked="checked" />
       <label>On Exit</label>
 
       <input type="radio" name="when_to_transfer_output"
-      value="ON_EXIT_OR_EVICT" />
+             value="ON_EXIT_OR_EVICT" />
       <label>On exit or evict</label>
 
     </p>
@@ -91,6 +91,42 @@
   </fieldset>
 
   <fieldset><legend>3: Even more.</legend>
+    <p>
+      <strong>Requirements</strong><br/>
+    <p>
+      Operating System:
+      <% %w(LINUX WIN32 WINDOWS).each do |opSys| %>
+      <input type="radio" name="required_opsys" value="<%= opSys %>" id="<%= opSys %>" />
+      <label for="<%= opSys %>"><%= opSys %></label>
+      <% end %>
+    </p>
+    <p>
+      Architecture:
+      <% %w(INTEL).each do |arch| %>
+      <input type="radio" name="required_arch" value="<%= arch %>" id="<%= arch %>" />
+      <label for="<%= arch %>"><%= arch %></label>
+      <% end %>
+    </p>
+    <p>
+      Minimum Memory:
+      <select name="required_memory">
+        <option value=""> N/A </option>
+        <% 1.upto(10) do |i| %>
+        <option value=<%= 2**i %>> <%= 2**i %> MB</option>
+        <%end%>
+      </select>
+      of physical memory
+    </p>
+    </p>
+    
+    <!--
+        <p>
+          <strong>Rank</strong><br/>
+          Rank =  Memory >= 64
+          
+          </p>
+-->
+    
   </fieldset>
 
   <input type="submit" value="Condorfy!">

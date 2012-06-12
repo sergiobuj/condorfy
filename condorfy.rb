@@ -58,8 +58,36 @@ post '/condorfy/?' do
   end
   @condorfyle << "log = #{files_name}.log\n"
 
+  customexec = params.delete("real_bin_path")
+  unless customexec.nil?
+    params.delete("executable")
+    @condorfyle << "executable = #{customexec}"
+  end
+
+  @files_name = files_name
+  @input_file_content = params.delete("input_file_content")
+
+  ##### Handle requirements #####
+  reqs = []
+  opsys = params.delete("required_opsys")
+  unless opsys.nil?
+    reqs.push("OpSys == \"#{opsys}\"")
+  end
+  memory = params.delete("required_memory")
+  unless memory.nil?
+    reqs.push("Memory >= #{memory}")
+  end
+  arch = params.delete("required_arch")
+  unless arch.nil?
+    reqs.push("Arch == \"#{arch}\"")
+  end
+
+  unless reqs.empty?
+    @condorfyle << "requirements = #{reqs.join(" && ")}\n"
+  end  
+  
   ##### Create file #####
-  @condorfyle << "\n\n#### Other config variables ####\n"
+  @condorfyle << "\n#### Other config variables ####\n"
   params.each do | key , value|
     @condorfyle << "#{key} = #{value}\n"
   end
@@ -75,18 +103,17 @@ post '/condorfy/?' do
     @condorfyle << "queue #{machine_count}\n"
   end
   
-  session["CFNcondor"] = files_name
   session["condorfi"] = @condorfyle
   erb :condorfied
 end
 
-get '/getfied' do
+get '/download/:filename' do
   content_type 'application/condor'
   temp = Tempfile.new("condor.file.condor")
   temp.write( session["condorfi"] )
   temp.close
 
-  send_file(temp.path , :disposition => 'attachment', :filename => "#{session['CFNcondor']}.condor")
+  send_file(temp.path , :disposition => 'attachment', :filename => "#{:filename}.condor")
 
   temp.unlink
 end

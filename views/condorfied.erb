@@ -1,7 +1,21 @@
+
 <h1>"Condor File created!"</h1>
-<div id='condor_file'>
-  <%= @condorfyle.gsub(/\n/, '<br>') %>
-</div>
+
+<p> Condor file sample </p>
+<p>
+  <div id='condor_file'>
+    <%= @condorfyle.gsub(/\n/, '<br>') %>
+  </div>
+</p>
+
+<% unless @input_file_content.nil? %>
+  <p> Input file sample </p>
+  <p>
+    <div id='condor_file'>
+      <%= @input_file_content.gsub(/\n/, '<br>') %>
+    </div>
+  </p>
+<% end %>
 
 <a href='/create'>Create another condor file</a><br/>
-<a href='/getfied'>Download .condor file</a>
+<a href="/download/<%=@files_name%>">Download .condor file</a>
