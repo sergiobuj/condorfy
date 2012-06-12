@@ -6,7 +6,7 @@
 
     <p>
       <% %w(vanilla standard parallel java).each do |universe| %>
-      <input type="radio" name="universe" value="<%= universe %>" id="<%= universe %>" />
+      <input type="radio" name="universe" value="<%= universe %>" id="<%= universe %>" <%= universe == 'vanilla'? "checked" : ""%>/>
       <label for="<%= universe %>"><%= titleize universe %></label>
       <% end %>
     </p>
@@ -63,7 +63,7 @@
       <strong>Should transfer files:</strong><br/>
       <input type="radio" name="should_transfer_files"
              value="IF_NEEDED"
-             checked="checked" />
+             checked/>
       <label>If needed</label>
 
       <input type="radio" name="should_transfer_files"
