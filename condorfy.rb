@@ -37,7 +37,7 @@ post '/condorfy/?' do
 
   is_parallel = true if params[:universe] == "parallel"
 
-  @condorfyle = "#### Auto generated Condor Submission file ####\n"
+  @condorfyle = "#### Generated Condor Submission file ####\n"
   @condorfyle << "#### APOLO eafit COL ####\n\n"
 
   files_name = params.delete("files_name")
