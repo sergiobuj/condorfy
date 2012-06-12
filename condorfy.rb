@@ -61,7 +61,7 @@ post '/condorfy/?' do
   customexec = params.delete("real_bin_path")
   unless customexec.nil?
     params.delete("executable")
-    @condorfyle << "executable = #{customexec}"
+    @condorfyle << "executable = #{customexec}\n"
   end
 
   @files_name = files_name
