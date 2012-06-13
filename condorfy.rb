@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'yaml'
 
 begin
   require 'sinatra/reloader'
@@ -24,7 +25,10 @@ end
 
 ['/', '/create/?'].each do |req|
   get req do
-    @binaries = File.read("adminbins").split(/\n/)
+    yconfig = YAML.load_file("config.yaml")
+    @binaries = yconfig["bins"]
+    @archs = yconfig["arch"]
+    @opsys = yconfig["opsys"]
     @max_num_jobs = 200
     erb :form
   end

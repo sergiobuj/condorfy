@@ -1,0 +1,15 @@
+bins:
+- "/opt/python/bin/python2.7"
+- "/opt/octave/bin/octave"
+- "/bin/hostname"
+- "/usr/bin/nslookup"
+
+opsys:
+- "LINUX"
+- "WINNT61"
+- "WIN32"
+
+arch:
+- "INTEL"
+- "X86"
+- "X86_64"
