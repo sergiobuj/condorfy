@@ -24,7 +24,7 @@ end
 
 ['/', '/create/?'].each do |req|
   get req do
-    @binaries = `ls /usr/bin`.split(/\n/)
+    @binaries = File.read("adminbins").split(/\n/)
     @max_num_jobs = 200
     erb :form
   end
