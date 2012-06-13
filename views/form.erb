@@ -16,7 +16,7 @@
       <select name="executable">
         <option option="-1"></option>
         <% @binaries.each_with_index do |item, i| %>
-        <option option=<%=i%>>/usr/bin/<%=item%></option>
+        <option option=<%=i%>><%=item%></option>
         <%end%>
       </select>
     </p>
