@@ -19,7 +19,9 @@ helpers do
   end
 
   def unspace(word)
-    word.sub(" ", "_" )
+    unless word.nil?
+      word.gsub(" ", "_" )
+    end
   end
 end
 
