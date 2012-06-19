@@ -51,6 +51,9 @@ post '/condorfy/?' do
   @condorfyle << "#### APOLO eafit COL ####\n\n"
 
   files_name = unspace params.delete("files_name")
+  if files_name.nil?
+    files_name = "submit_to_condor"
+  end
   machine_count = params.delete("jobs_or_cores")
 
   env_names  = params.delete("env_names")
