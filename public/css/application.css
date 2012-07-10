@@ -30,6 +30,13 @@ a {
 }
 .env-var { margin-top: 15px }
 
+.js-remove-var {
+  font-size: 12px;
+  color: #0000FF;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
 label.main{
   font-weight: bold;
 }
