@@ -1,6 +1,12 @@
+#require 'sinatra'
 require 'sinatra'
+require 'rubygems'
+require 'bundler'
 require 'yaml'
 require './engine.rb'
+require 'bundler/setup'
+environment = ENV['RACK_ENV'] || 'development'
+Bundler.require(:default, environment.to_sym)
 
 begin
   require 'sinatra/reloader'
@@ -27,7 +33,7 @@ helpers do
   end
 end
 
-['/', '/create/?'].each do |req|
+['/', '/create/?', 'condorfy/?'].each do |req|
   get req do
     yconfig = YAML.load_file("config.yaml")
     @binaries = yconfig["bins"]
